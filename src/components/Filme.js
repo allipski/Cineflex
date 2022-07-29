@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -28,7 +28,9 @@ export default function Filme() {
             </h3>
             <div>
               {time.showtimes.map((session, index) => (
-                <button key={index}>{session.name}</button>
+                <Link to={`/assentos/${session.id}`}>
+                    <button key={index}>{session.name}</button>
+                </Link>
               ))}
             </div>
           </div>
@@ -86,6 +88,10 @@ const Wrapper = styled.div`
     font-size: 18px;
     font-weight: 400;
     color: #FFFFFF;
+  }
+  
+  button:hover {
+    cursor: pointer;
   }
   
 `;
