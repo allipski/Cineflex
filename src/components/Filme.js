@@ -28,8 +28,8 @@ export default function Filme() {
             </h3>
             <div>
               {time.showtimes.map((session, index) => (
-                <Link to={`/assentos/${session.id}`}>
-                    <button key={index}>{session.name}</button>
+                <Link key={index} to={`/assentos/${session.id}`}>
+                    <button>{session.name}</button>
                 </Link>
               ))}
             </div>
