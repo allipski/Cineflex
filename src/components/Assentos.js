@@ -4,10 +4,12 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import SeatButton from "./SeatButton";
 import Legenda from "./Legenda";
+import Form from "./Form";
 
 export default function Assentos() {
   const { idSessao } = useParams();
   const [seats, setSeats] = useState([]);
+  const [chosen, setChosen] = useState([]);
 
   useEffect(() => {
     const promise = axios.get(
@@ -19,17 +21,26 @@ export default function Assentos() {
     });
   }, []);
 
+  console.log(chosen);
+
   return (
     <Wrapper>
       <h2>Selecione o(s) assento(s)</h2>
       <div>
         {seats.map((seat, index) => (
           <Seat key={index}>
-            <SeatButton available={seat.isAvailable} number={seat.name}/>
+            <SeatButton
+              chosen={chosen}
+              setChosen={setChosen}
+              available={seat.isAvailable}
+              number={seat.name}
+              id={seat.id}
+            />
           </Seat>
         ))}
       </div>
       <Legenda />
+      <Form chosen={chosen}/>
     </Wrapper>
   );
 }
@@ -64,4 +75,3 @@ const Seat = styled.div`
   justify-content: center;
   align-items: center;
 `;
-

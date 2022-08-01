@@ -1,14 +1,26 @@
 import styled from "styled-components";
 import { useState } from "react";
 
-export default function SeatButton({ available, number }) {
+export default function SeatButton({
+  chosen,
+  setChosen,
+  available,
+  number,
+  id,
+}) {
   const [escolhido, setEscolhido] = useState(false);
+
   return (
     <Button
       escolhido={escolhido}
       available={!available}
       onClick={() => {
-        !available ? alert('Esse assento não está disponível. Por favor, escolha outro assento.') : setEscolhido(!escolhido)
+        !available
+          ? alert(
+              "Esse assento não está disponível. Por favor, escolha outro assento."
+            )
+          : setEscolhido(!escolhido);
+        setChosen(chosen.includes(id) ? chosen.filter((item) => {if(item != id) {return item}}) : [...chosen, id]);
       }}
     >
       {number}
