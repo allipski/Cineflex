@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { useState } from "react";
 
 export default function SeatButton({
+  numero,
+  setNumero,
   chosen,
   setChosen,
   available,
@@ -21,6 +23,7 @@ export default function SeatButton({
             )
           : setEscolhido(!escolhido);
         setChosen(chosen.includes(id) ? chosen.filter((item) => {if(item != id) {return item}}) : [...chosen, id]);
+        setNumero(numero.includes(number) ? numero.filter((item) => {if(item != number) {return item}}) : [...numero, number]);
       }}
     >
       {number}

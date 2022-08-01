@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import SeatButton from "./SeatButton";
@@ -10,6 +10,8 @@ export default function Assentos() {
   const { idSessao } = useParams();
   const [seats, setSeats] = useState([]);
   const [chosen, setChosen] = useState([]);
+  const [numero, setNumero] = useState([]);
+  const state = useLocation();
 
   useEffect(() => {
     const promise = axios.get(
@@ -21,8 +23,6 @@ export default function Assentos() {
     });
   }, []);
 
-  console.log(chosen);
-
   return (
     <Wrapper>
       <h2>Selecione o(s) assento(s)</h2>
@@ -30,6 +30,8 @@ export default function Assentos() {
         {seats.map((seat, index) => (
           <Seat key={index}>
             <SeatButton
+              numero={numero}
+              setNumero={setNumero}
               chosen={chosen}
               setChosen={setChosen}
               available={seat.isAvailable}
@@ -40,7 +42,7 @@ export default function Assentos() {
         ))}
       </div>
       <Legenda />
-      <Form chosen={chosen}/>
+      <Form numero={numero} chosen={chosen} state={state.state}/>
     </Wrapper>
   );
 }

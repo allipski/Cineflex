@@ -1,38 +1,41 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 export default function Filmes() {
-    const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState([]);
 
-	useEffect(() => {
-		const promise = axios.get("https://mock-api.driven.com.br/api/v7/cineflex/movies");
+  useEffect(() => {
+    const promise = axios.get(
+      "https://mock-api.driven.com.br/api/v7/cineflex/movies"
+    );
 
-		promise.then(answer => {
-			setMovies(answer.data);
-		});
-	}, []);
+    promise.then((answer) => {
+      setMovies(answer.data);
+    });
+  }, []);
 
-	return (
-        <Wrapper>
-            {movies.map((movie, index) =>
-            <div key={index}>
-                <Link to={`/sessoes/${movie.id}`}>
-                    <img alt={index} src={movie.posterURL}></img>
-                </Link>
-            </div>)}
-        </Wrapper>
-	);
+  return (
+    <Wrapper>
+      {movies.map((movie, index) => (
+        <div key={index}>
+          <Link to={`/sessoes/${movie.id}`} state={{ title: movie.title }}>
+            <img alt={index} src={movie.posterURL}></img>
+          </Link>
+        </div>
+      ))}
+    </Wrapper>
+  );
 }
 
 const Wrapper = styled.div`
-display: flex;
-flex-wrap: wrap;
-align-items: center;
-justify-content: space-around;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
 
-div {
+  div {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -43,11 +46,11 @@ div {
     border-radius: 3px;
     object-fit: contain;
     margin: 10px;
-}
+  }
 
-img {
+  img {
     height: 100%;
     width: 100%;
     object-fit: contain;
-}
-`
+  }
+`;

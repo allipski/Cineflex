@@ -1,11 +1,13 @@
 import styled from "styled-components";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function Filme() {
   const { idFilme } = useParams();
   const [times, setTimes] = useState([]);
+  const state = useLocation();
+  console.log(state.state);
 
   useEffect(() => {
     const promise = axios.get(
@@ -28,8 +30,17 @@ export default function Filme() {
             </h3>
             <div>
               {time.showtimes.map((session, index) => (
-                <Link key={index} to={`/assentos/${session.id}`}>
-                    <button>{session.name}</button>
+                <Link
+                  key={index}
+                  to={`/assentos/${session.id}`}
+                  state={{
+                    ...state.state,
+                    weekday: time.weekday,
+                    date: time.date,
+                    session: session.name,
+                  }}
+                >
+                  <button>{session.name}</button>
                 </Link>
               ))}
             </div>
@@ -45,6 +56,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 100%;
 
   h2 {
     font-size: 24px;
@@ -81,17 +93,16 @@ const Wrapper = styled.div`
   }
 
   button {
-    background-color: #E8833A;
+    background-color: #e8833a;
     border: none;
     border-radius: 3px;
     padding: 6px 9px;
     font-size: 18px;
     font-weight: 400;
-    color: #FFFFFF;
+    color: #ffffff;
   }
-  
+
   button:hover {
     cursor: pointer;
   }
-  
 `;

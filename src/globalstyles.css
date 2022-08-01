@@ -5,9 +5,17 @@
 html,
 body {
     height: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-family: 'Roboto', sans-serif;
+    width: 100%;
 }
 
 .root {
     padding-top: 67px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
 }
