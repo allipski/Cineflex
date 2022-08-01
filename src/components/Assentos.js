@@ -5,6 +5,7 @@ import axios from "axios";
 import SeatButton from "./SeatButton";
 import Legenda from "./Legenda";
 import Form from "./Form";
+import Rodape from "./Rodape";
 
 export default function Assentos() {
   const { idSessao } = useParams();
@@ -24,6 +25,7 @@ export default function Assentos() {
   }, []);
 
   return (
+    <>
     <Wrapper>
       <h2>Selecione o(s) assento(s)</h2>
       <div>
@@ -44,6 +46,8 @@ export default function Assentos() {
       <Legenda />
       <Form numero={numero} chosen={chosen} state={state.state}/>
     </Wrapper>
+    <Rodape image={state.state.image} title={state.state.title} weekday={state.state.weekday} session={state.state.session} />
+    </>
   );
 }
 

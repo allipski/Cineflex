@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useParams, Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Rodape from "./Rodape";
 
 export default function Filme() {
   const { idFilme } = useParams();
@@ -20,34 +21,37 @@ export default function Filme() {
   }, []);
 
   return (
-    <Wrapper>
-      <h2>Selecione o horário</h2>
-      <div>
-        {times.map((time, index) => (
-          <div key={index}>
-            <h3>
-              {time.weekday} - {time.date}
-            </h3>
-            <div>
-              {time.showtimes.map((session, index) => (
-                <Link
-                  key={index}
-                  to={`/assentos/${session.id}`}
-                  state={{
-                    ...state.state,
-                    weekday: time.weekday,
-                    date: time.date,
-                    session: session.name,
-                  }}
-                >
-                  <button>{session.name}</button>
-                </Link>
-              ))}
+    <>
+      <Wrapper>
+        <h2>Selecione o horário</h2>
+        <div>
+          {times.map((time, index) => (
+            <div key={index}>
+              <h3>
+                {time.weekday} - {time.date}
+              </h3>
+              <div>
+                {time.showtimes.map((session, index) => (
+                  <Link
+                    key={index}
+                    to={`/assentos/${session.id}`}
+                    state={{
+                      ...state.state,
+                      weekday: time.weekday,
+                      date: time.date,
+                      session: session.name,
+                    }}
+                  >
+                    <button>{session.name}</button>
+                  </Link>
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
-    </Wrapper>
+          ))}
+        </div>
+      </Wrapper>
+      <Rodape image={state.state.image} title={state.state.title} />
+    </>
   );
 }
 
@@ -57,6 +61,7 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
+  padding-bottom: 125px;
 
   h2 {
     font-size: 24px;

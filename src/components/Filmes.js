@@ -20,7 +20,7 @@ export default function Filmes() {
     <Wrapper>
       {movies.map((movie, index) => (
         <div key={index}>
-          <Link to={`/sessoes/${movie.id}`} state={{ title: movie.title }}>
+          <Link to={`/sessoes/${movie.id}`} state={{ title: movie.title, image: movie.posterURL }}>
             <img alt={index} src={movie.posterURL}></img>
           </Link>
         </div>
